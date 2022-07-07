@@ -59,6 +59,10 @@ const startingAllProvidersState: AllProvidersState = {
     providerSpec: STAMP_PROVIDERS.Github,
     stamp: undefined,
   },
+  GoodDollar: {
+    providerSpec: STAMP_PROVIDERS.GoodDollar,
+    stamp: undefined,
+  },
 };
 
 const startingState: CeramicContextState = {

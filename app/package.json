@@ -22,6 +22,8 @@
     "@gitcoin/passport-database-client": "^1.0.0",
     "@gitcoin/passport-identity": "^1.0.0",
     "@gitcoin/passport-types": "^1.0.0",
+    "@gooddollar/goodlogin-sdk": "^1.1.14",
+    "@gooddollar/web3sdk-v2": "^0.1.11",
     "@self.id/framework": "^0.3.2",
     "@web3-onboard/core": "^2.3.2",
     "@web3-onboard/injected-wallets": "^2.0.12",
@@ -64,6 +66,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "jest-localstorage-mock": "^2.4.21",
+    "jest-location-mock": "^1.0.9",
     "jest-mock-extended": "^2.0.5",
     "postcss": "^8.4.5",
     "prettier": "^2.6.2",
@@ -76,7 +79,6 @@
   },
   "resolutions": {
     "csstype": "3.0.10",
-    "**/@types/react": "17.0.2",
     "leveldown": "6.1.1"
   }
 }
