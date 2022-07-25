@@ -1,10 +1,12 @@
 {
   "files": [],
   "references": [
-    { "path": "app" },
-    { "path": "iam" },
-    { "path": "identity" },
-    { "path": "types" }
+    { "path": "packages/app" },
+    { "path": "packages/database-client" },
+    { "path": "packages/schemas" },
+    { "path": "packages/iam" },
+    { "path": "packages/identity" },
+    { "path": "packages/types" }
   ],
   "exclude": ["node_modules"]
 }
