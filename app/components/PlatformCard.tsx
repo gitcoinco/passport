@@ -95,7 +95,7 @@ export const PlatformCard = ({
           {updatedPlatforms &&
             platform?.enablePlatformCardUpdate &&
             updatedPlatforms[platform.name] !== true &&
-            selectedProviders[platform.platform].length > 0 && (
+            selectedProviders[platform.platform]?.length > 0 && (
               <div className="inline-flex h-6 items-center rounded-xl bg-yellow px-2 text-xs font-medium shadow-sm">
                 Update
               </div>
