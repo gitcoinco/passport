@@ -191,7 +191,8 @@ export type PLATFORM_ID =
   | "ZkSync"
   | "Lens"
   | "GnosisSafe"
-  | "Coinbase";
+  | "Coinbase"
+  | "RociFi";
 
 export type PROVIDER_ID =
   | "Signer"
@@ -256,4 +257,5 @@ export type PROVIDER_ID =
   | "ZkSync"
   | "Lens"
   | "GnosisSafe"
-  | "Coinbase";
+  | "Coinbase"
+  | "RociFi";

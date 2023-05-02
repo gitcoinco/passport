@@ -186,4 +186,11 @@ export const PLATFORMS: PlatformSpec[] = [
     connectMessage: "Connect Account",
     isEVM: false,
   },
+  {
+    icon: "./assets/rociFiStampIcon.svg",
+    platform: "RociFi",
+    name: "RociFi",
+    description: "Connect a wallet and validate the stamp by checking NFCS ownership.",
+    connectMessage: "Verify NFCS",
+  },
 ];

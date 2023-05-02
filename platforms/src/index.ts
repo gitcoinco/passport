@@ -26,6 +26,7 @@ import * as Google from "./Google";
 import * as ClearText from "./ClearText";
 import * as Brightid from "./Brightid";
 import * as Coinbase from "./Coinbase";
+import * as RociFi from "./RociFi";
 
 export {
   Brightid,
@@ -50,6 +51,7 @@ export {
   Ens,
   Twitter,
   Coinbase,
+  RociFi,
 };
 
 // Initiate providers - new Providers should be registered in this array...
@@ -222,6 +224,7 @@ export const providers = new Providers([
   new ZkSync.ZkSyncProvider(),
   new GnosisSafe.GnosisSafeProvider(),
   new Coinbase.CoinbaseProvider(),
+  new RociFi.RociFiProvider(),
 ]);
 
 export { Platform, AppContext, ProviderPayload, PlatformSpec } from "./types";

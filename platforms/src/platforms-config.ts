@@ -175,4 +175,11 @@ export const PLATFORMS: PlatformSpec[] = [
     description: "Connect your existing Coinbase account to verify.",
     connectMessage: "Connect Account",
   },
+  {
+    icon: "./assets/rociFiStampIcon.svg",
+    platform: "RociFi",
+    name: "Roci Finance",
+    description: "RociFi NFCS ownership verification",
+    connectMessage: "Verify NFCS",
+  },
 ];
