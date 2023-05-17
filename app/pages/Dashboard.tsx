@@ -231,7 +231,7 @@ export default function Dashboard() {
             </Tooltip>
           </div>
         </div>
-        <div className={`col-start-[-${isOnChainSyncEnabled ? 3 : 2}] col-end-[-1] flex justify-self-end`}>
+        <div className={`col-span-1 col-end-[-1] flex justify-self-end`}>
           {isLiveAlloScoreEnabled && (
             <div className={"flex min-w-fit items-center"}>
               <div className={`pr-2 ${passportSubmissionState === "APP_REQUEST_PENDING" ? "visible" : "invisible"}`}>
@@ -258,34 +258,32 @@ export default function Dashboard() {
             </div>
           )}
 
-          {isOnChainSyncEnabled && wallet?.chains[0].id === sepoliaChainId && (
-            <div className="mx-4">
-              <SyncToChainButton />
-            </div>
-          )}
-          {passport ? (
-            <button
-              data-testid="button-passport-json-mobile"
-              className="h-10 w-10 rounded-md border border-muted"
-              onClick={onOpen}
-            >
-              {`</>`}
-            </button>
-          ) : (
-            <div
-              data-testid="loading-spinner-passport"
-              className="flex flex-row items-center rounded-md border-2 border-muted py-2 px-4"
-            >
-              <Spinner
-                className="my-[2px]"
-                thickness="2px"
-                speed="0.65s"
-                emptyColor="darkGray"
-                color="gray"
-                size="md"
-              />
-            </div>
-          )}
+          <div className="ml-4 flex flex-col place-items-center gap-4 md:flex-row">
+            {isOnChainSyncEnabled && wallet?.chains[0].id === sepoliaChainId && <SyncToChainButton />}
+            {passport ? (
+              <button
+                data-testid="button-passport-json-mobile"
+                className="h-10 w-10 rounded-md border border-muted"
+                onClick={onOpen}
+              >
+                {`</>`}
+              </button>
+            ) : (
+              <div
+                data-testid="loading-spinner-passport"
+                className="flex flex-row items-center rounded-md border-2 border-muted py-2 px-4"
+              >
+                <Spinner
+                  className="my-[2px]"
+                  thickness="2px"
+                  speed="0.65s"
+                  emptyColor="darkGray"
+                  color="gray"
+                  size="md"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </PageWidthGrid>
     ),
