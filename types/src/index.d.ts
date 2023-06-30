@@ -224,7 +224,8 @@ export type PLATFORM_ID =
   | "Hypercerts"
   | "PHI"
   | "Holonym"
-  | "Idena";
+  | "Idena"
+  | "Clique";
 
 export type PROVIDER_ID =
   | "Signer"
@@ -304,4 +305,11 @@ export type PROVIDER_ID =
   | "IdenaStake#10k"
   | "IdenaStake#100k"
   | "IdenaAge#5"
-  | "IdenaAge#10";
+  | "IdenaAge#10"
+  | "CliqueGithub"
+  | "CliqueGithubUsers#numFollowersGithub#1"
+  | "CliqueGithubRepo#sumCommitsPublicGithub#1"
+  | "CliqueGithubRepo#sumContributedToPublicGithub#1"
+  | "CliqueGithubRepo#sumIssuesPublicGithub#1"
+  | "CliqueGithubRepo#sumPRsPublicGithub#1"
+  | "CliqueGithubRepo#sumStarsPublicGithub#1";
