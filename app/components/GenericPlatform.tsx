@@ -40,10 +40,12 @@ import { debounce } from "ts-debounce";
 import { BroadcastChannel } from "broadcast-channel";
 import { datadogRum } from "@datadog/browser-rum";
 import { NoStampModal } from "./NoStampModal";
+import { ProviderCards } from "./platform";
 
 export type PlatformProps = {
   platFormGroupSpec: PlatformGroupSpec[];
   platform: PlatformClass;
+  providerCards?: ProviderCards;
 };
 
 enum VerificationStatuses {
@@ -63,7 +65,12 @@ const fail = "../assets/verification-failed-bright.svg";
 
 type GenericPlatformProps = PlatformProps & { onClose: () => void };
 
-export const GenericPlatform = ({ platFormGroupSpec, platform, onClose }: GenericPlatformProps): JSX.Element => {
+export const GenericPlatform = ({
+  platFormGroupSpec,
+  platform,
+  providerCards,
+  onClose,
+}: GenericPlatformProps): JSX.Element => {
   const { address, signer } = useContext(UserContext);
   const { handlePatchStamps, allProvidersState, userDid } = useContext(CeramicContext);
   const [isLoading, setLoading] = useState(false);
@@ -184,6 +191,7 @@ export const GenericPlatform = ({ platFormGroupSpec, platform, onClose }: Generi
         screen,
         userDid,
         callbackUrl: window.location.origin,
+        selectedProviders,
         waitForRedirect,
       })) as {
         [k: string]: string;
@@ -406,6 +414,7 @@ export const GenericPlatform = ({ platFormGroupSpec, platform, onClose }: Generi
       <SideBarContent
         currentPlatform={getPlatformSpec(platform.platformId)}
         currentProviders={platFormGroupSpec}
+        currentProviderCards={providerCards}
         verifiedProviders={verifiedProviders}
         selectedProviders={selectedProviders}
         setSelectedProviders={setSelectedProviders}

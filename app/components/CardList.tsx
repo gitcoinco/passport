@@ -86,6 +86,7 @@ export const CardList = ({ isLoading = false }: CardListProps): JSX.Element => {
           <GenericPlatform
             platform={platformProps.platform}
             platFormGroupSpec={platformProps.platFormGroupSpec}
+            providerCards={platformProps.providerCards}
             onClose={onClose}
           />
         );
@@ -98,6 +99,7 @@ export const CardList = ({ isLoading = false }: CardListProps): JSX.Element => {
         setSelectedProviders={undefined}
         currentPlatform={undefined}
         currentProviders={undefined}
+        currentProviderCards={undefined}
         isLoading={undefined}
         verifyButton={undefined}
       />
