@@ -23,6 +23,7 @@ import * as Hypercerts from "./Hypercerts";
 import * as PHI from "./PHI";
 import * as Holonym from "./Holonym";
 import * as Idena from "./Idena";
+import * as Aspecta from "./Aspecta";
 import * as Civic from "./Civic";
 import { PlatformSpec, PlatformGroupSpec, Provider } from "./types";
 
@@ -59,6 +60,7 @@ const platforms: Record<string, PlatformConfig> = {
   PHI,
   Holonym,
   Idena,
+  Aspecta,
   Civic,
 };
 

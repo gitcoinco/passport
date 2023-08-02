@@ -224,6 +224,7 @@ export type PLATFORM_ID =
   | "PHI"
   | "Holonym"
   | "Idena"
+  | "Aspecta"
   | "Civic";
 
 export type PROVIDER_ID =
@@ -303,6 +304,7 @@ export type PROVIDER_ID =
   | "IdenaStake#100k"
   | "IdenaAge#5"
   | "IdenaAge#10"
+  | "Aspecta"
   | "CivicCaptchaPass"
   | "CivicUniquenessPass"
   | "CivicLivenessPass"
