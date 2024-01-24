@@ -7,45 +7,47 @@ on:
     branches: [main]
 
 jobs:
-  # ceramic-config:
-  #   runs-on: ubuntu-latest
+  #   ceramic-config:
+  #     runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Ceramic Config
-  #       run: |
-  #         echo ${GITHUB_WORKSPACE}
-  #         echo "List files in GITHUB_WORKSPACE"
-  #         ls ${GITHUB_WORKSPACE}
-  #         echo "Pwd"
-  #         pwd
-  #         echo '{"anchor": {"auth-method": "did"}, "http-api": {"cors-allowed-origins": [".*"], "admin-dids": ["did:key:z6MkgUzNYV8J1yw43wj9K2CbhTZoN25uZ6TJ3Gi4cYVpZyDb"]}, "ipfs": {"mode": "bundled", "disable-peer-data-sync": false}, "logger": {"log-level": 2, "log-to-files": false}, "metrics": {"metrics-exporter-enabled": false}, "network": {"name": "testnet-clay"}, "node": {}, "state-store": {"mode": "fs", "local-directory": "/home/root/.ceramic/statestore/"}, "indexing": {"db": "sqlite:///home/root/.ceramic/indexing.sqlite", "allow-queries-before-historical-sync": true, "disable-composedb": false, "enable-historical-sync": false}}' > ${GITHUB_WORKSPACE}/daemon.config.json
+  #     steps:
+  #       - name: Ceramic Config
+  #         run: |
+  #           echo ${GITHUB_WORKSPACE}
+  #           echo "List files in GITHUB_WORKSPACE"
+  #           ls ${GITHUB_WORKSPACE}
+  #           echo "Pwd"
+  #           pwd
+  #           echo '{"anchor": {"auth-method": "did"}, "http-api": {"cors-allowed-origins": [".*"], "admin-dids": ["did:key:z6MkgUzNYV8J1yw43wj9K2CbhTZoN25uZ6TJ3Gi4cYVpZyDb"]}, "ipfs": {"mode": "bundled", "disable-peer-data-sync": false}, "logger": {"log-level": 2, "log-to-files": false}, "metrics": {"metrics-exporter-enabled": false}, "network": {"name": "testnet-clay"}, "node": {}, "state-store": {"mode": "fs", "local-directory": "/home/root/.ceramic/statestore/"}, "indexing": {"db": "sqlite:///home/root/.ceramic/indexing.sqlite", "allow-queries-before-historical-sync": true, "disable-composedb": false, "enable-historical-sync": false}}' > ${GITHUB_WORKSPACE}/daemon.config.json
 
-  # debug:
-  #   runs-on: ubuntu-latest
-        
-  #   steps:
-  #     - name: Debug
-  #       run: |
-  #         echo ${GITHUB_WORKSPACE}
-  #         echo "List files in GITHUB_WORKSPACE"
-  #         ls ${GITHUB_WORKSPACE}
-  #         echo "Pwd"
-  #         cat ${GITHUB_WORKSPACE}/daemon.config.json
+  #   debug:
+  #     runs-on: ubuntu-latest
+
+  #     steps:
+  #       - name: Checkout code
+  #         uses: actions/checkout@v2
+
+  #       - name: Set up Docker Container
+  #         # -v $PWD/daemon.config.json:/path/inside/container/daemon.config.json
+  #         run: |
+  #           mkdir $HOME/.ceramic
+  #           echo "${CERAMIC_CONFIG}" > $HOME/.ceramic/daemon.config.json
+
+  #           docker run --rm -p 7007:7007 ceramicnetwork/js-ceramic:3.2.0
+
+  #         env:
+  #           CERAMIC_CONFIG: ${{ secrets.CERAMIC_CONFIG }}
 
   build:
     # needs: [ceramic-config]
     runs-on: ubuntu-latest
 
-    # Run a local ceramic nod to test against
+    # Run a local ceramic node to test against
     services:
       ceramic:
-        image: ceramicnetwork/js-ceramic:3.2.0
+        image: ssstims/passport_ceramic:latest
         ports:
           - 7007:7007
-
-        # volumes:
-        #   # TODO: use GITHUB_WORKSPACE var here ..
-        #   - /home/runner/work/passport/passport/daemon.config.json:/root/.ceramic/daemon.config.json
 
     steps:
       - uses: actions/checkout@v3
@@ -56,18 +58,37 @@ jobs:
           cache: "yarn"
       - name: Install Packages
         run: yarn install
-      - name: Run Tests
-        run: yarn test
-      - name: Run Linter
-        run: yarn lint
+      - name: Wait for Ceramic to be ready
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:7007; do
+            echo 'Waiting for Ceramic service...'
+            sleep 5
+          done
+      - name: Deploy Schema
+        run: |
+          cd ./schemas
+          yarn composedb composite:deploy composites/gitcoin-passport-stamps-composite.json --ceramic-url=${CERAMIC_URL} --did-private-key=${PRIVATE_KEY}
+        env:
+          PRIVATE_KEY: ${{ secrets.CERAMIC_PRIVATE_KEY }}
+          CERAMIC_URL: "http://localhost:7007"
+      - name: Run Ceramic Integration Tests
+        run: yarn test:ceramic-integration
+        env:
+          CERAMIC_CLIENT_URL: "http://localhost:7007"
       - name: Workarround for build error
         run: rm -rf node_modules/@tendermint
       - name: Run Build (ensure that build succeeds)
         run: yarn build
-      - name: Run Ceramic Integration Tests
-        run: yarn test:ceramic-integration
-        env:
-          CERAMIC_CLIENT_URL: ${{secrets.CERAMIC_CLIENT_URL}}
+      # - name: Start Ceramic Daemon
+      #   uses: ssstims/passport_ceramic:latest
+      #   with:
+      #     wait-on: "http://localhost:7007"
+      #   env:
+      #     CERAMIC_CONFIG: ${{ secrets.CERAMIC_CONFIG }}
+      - name: Run Tests
+        run: yarn test
+      - name: Run Linter
+        run: yarn lint
 
   check-provider-bitmap:
     runs-on: ubuntu-latest
