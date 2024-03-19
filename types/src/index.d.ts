@@ -357,6 +357,7 @@ export type PLATFORM_ID =
   | "Holonym"
   | "Idena"
   | "Civic"
+  | "IDriss";
   | "CyberConnect"
   | "GrantsStack"
   | "TrustaLabs";
@@ -409,6 +410,7 @@ export type PROVIDER_ID =
   | "CommunityStakingSilver"
   | "CommunityStakingGold"
   | "NFT"
+  | "IDriss"
   | "ZkSync"
   | "ZkSyncEra"
   | "Lens"

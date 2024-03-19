@@ -21,6 +21,7 @@ import * as PHI from "./PHI";
 import * as Holonym from "./Holonym";
 import * as Idena from "./Idena";
 import * as Civic from "./Civic";
+import * as IDriss from "./IDriss";
 import * as CyberConnect from "./CyberProfile";
 import * as TrustaLabs from "./TrustaLabs";
 import { PlatformSpec, PlatformGroupSpec, Provider } from "./types";
@@ -56,6 +57,7 @@ const platforms: Record<string, PlatformConfig> = {
   Holonym,
   Idena,
   Civic,
+  IDriss,
   CyberConnect,
   TrustaLabs,
 };
