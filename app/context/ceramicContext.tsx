@@ -43,6 +43,7 @@ const {
   Holonym,
   Idena,
   Civic,
+  IDriss,
   CyberConnect,
   TrustaLabs,
 } = stampPlatforms;
@@ -219,6 +220,13 @@ platforms.set("Civic", {
     redirectUri: process.env.NEXT_PUBLIC_PASSPORT_CIVIC_CALLBACK,
   }),
   platFormGroupSpec: Civic.ProviderConfig,
+});
+
+platforms.set("IDriss", {
+  platform: new IDriss.IDrissPlatform({
+    redirectUri: process.env.NEXT_PUBLIC_PASSPORT_CIVIC_CALLBACK,
+  }),
+  platFormGroupSpec: IDriss.ProviderConfig,
 });
 
 if (process.env.NEXT_PUBLIC_FF_CYBERCONNECT_STAMPS === "on") {
