@@ -1,5 +1,6 @@
 // --- React methods
 import React, { useMemo } from "react";
+import { Notifications } from "./Notifications";
 
 type MinimalHeaderProps = {
   className?: string;
@@ -18,13 +19,14 @@ const MinimalHeader = ({ className }: MinimalHeaderProps): JSX.Element => {
   const assets = useMemo(() => getAssets(), []);
 
   return (
-    <div className={`flex h-16 ${className}`}>
+    <div className={`flex justify-between h-16 ${className}`}>
       <div className="flex items-center">
         <img className="" src={assets.gitcoinLogo} alt="Gitcoin Logo" />
         <img className="mx-3 md:mx-6" src={assets.logoLine} alt="Logo Line" />
         <img className="h-8" src={assets.passportLogo} alt="Passport Logo" />
         <div className="ml-3 text-2xl text-color-1">Passport</div>
       </div>
+      <Notifications />
     </div>
   );
 };
